@@ -17,8 +17,10 @@ body{
   overflow:hidden;
 }
 
+/* ✅ ONLY FIX APPLIED HERE */
 section{
-  height:100vh;
+  height:100svh;
+  min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -183,9 +185,8 @@ document.getElementById("tap").style.display="none";
 
 let intro=document.getElementById("intro");
 let msgAudio=document.getElementById("msgAudio");
-let s2=document.getElementById("s2music");
 
-// ✅ FIXED AUDIO UNLOCK (FOR GITHUB)
+// audio unlock (unchanged)
 [
   msgAudio,
   document.getElementById("bgmusic"),
@@ -203,7 +204,6 @@ let s2=document.getElementById("s2music");
   }
 });
 
-// 🎧 INTRO (unchanged)
 play(intro);
 
 let text=document.getElementById("introText");
