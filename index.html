@@ -9,23 +9,27 @@
 
 <style>
 
+html, body {
+  height: 100%;
+}
+
 body{
   margin:0;
+  padding:0; /* ✅ FIX */
   font-family:'Quicksand','Calibri',cursive;
   background:linear-gradient(135deg,#f5e6d3,#e8d3b9);
   color:#3b2c20;
   overflow:hidden;
 }
 
-/* ✅ ONLY FIX APPLIED HERE */
 section{
-  height:100svh;
-  min-height:100vh;
+  height:100dvh; /* ✅ FIX (main) */
   display:flex;
   justify-content:center;
   align-items:center;
   flex-direction:column;
   text-align:center;
+  box-sizing:border-box; /* ✅ FIX */
 }
 
 .fancy{
@@ -186,20 +190,19 @@ document.getElementById("tap").style.display="none";
 let intro=document.getElementById("intro");
 let msgAudio=document.getElementById("msgAudio");
 
-// audio unlock (unchanged)
-[
-  msgAudio,
-  document.getElementById("bgmusic"),
-  document.getElementById("instaAudio"),
-  document.getElementById("fbAudio"),
-  document.getElementById("s2music")
+// 🔥 GitHub audio fix
+[msgAudio,
+ document.getElementById("bgmusic"),
+ document.getElementById("instaAudio"),
+ document.getElementById("fbAudio"),
+ document.getElementById("s2music")
 ].forEach(a=>{
   if(a){
-    a.muted = true;
+    a.muted=true;
     a.play().then(()=>{
       a.pause();
-      a.currentTime = 0;
-      a.muted = false;
+      a.currentTime=0;
+      a.muted=false;
     }).catch(()=>{});
   }
 });
