@@ -15,7 +15,7 @@ html, body {
 
 body{
   margin:0;
-  padding:0; /* ✅ FIX */
+  padding:0;
   font-family:'Quicksand','Calibri',cursive;
   background:linear-gradient(135deg,#f5e6d3,#e8d3b9);
   color:#3b2c20;
@@ -23,13 +23,13 @@ body{
 }
 
 section{
-  height:100dvh; /* ✅ FIX (main) */
+  height:100dvh; /* FIXED CENTERING */
   display:flex;
   justify-content:center;
   align-items:center;
   flex-direction:column;
   text-align:center;
-  box-sizing:border-box; /* ✅ FIX */
+  box-sizing:border-box;
 }
 
 .fancy{
@@ -89,18 +89,18 @@ img{
 <section>
   <h2 id="tap">Tap to start 💖</h2>
   <h1 id="introText"></h1>
-  <audio id="intro" src="intro.mp3" preload="auto"></audio>
+  <audio id="intro" src="intro.mp3"></audio>
 </section>
 
 <section>
   <h2 id="msgText"></h2>
   <button id="btn" onclick="showPhoto()" style="display:none;">Chaloooooo 💕</button>
-  <audio id="msgAudio" src="message.mp3" preload="auto"></audio>
+  <audio id="msgAudio" src="message.mp3"></audio>
 </section>
 
 <section id="photo" style="display:none;">
   <img src="photo.jpg">
-  <audio id="bgmusic" src="bgmusic.mp3" preload="auto"></audio>
+  <audio id="bgmusic" src="bgmusic.mp3"></audio>
 </section>
 
 <section id="afterPhoto" style="display:none;">
@@ -112,7 +112,7 @@ img{
 
 <section id="insta" style="display:none;">
   <img src="insta.jpg">
-  <audio id="instaAudio" src="insta.mp3" preload="auto"></audio>
+  <audio id="instaAudio" src="insta.mp3"></audio>
 </section>
 
 <section id="instaBtn2Sec" style="display:none;">
@@ -121,7 +121,7 @@ img{
 
 <section id="fb" style="display:none;">
   <img src="fb.jpg">
-  <audio id="fbAudio" src="fbmusic.mp3" preload="auto"></audio>
+  <audio id="fbAudio" src="fbmusic.mp3"></audio>
 </section>
 
 <section id="typingSec" style="display:none;">
@@ -136,7 +136,7 @@ img{
 <section id="sticker2" style="display:none;">
   <h2>But reality 😂</h2>
   <img src="sticker2.png">
-  <audio id="s2music" src="s2music.mp3" preload="auto"></audio>
+  <audio id="s2music" src="s2music.mp3"></audio>
   <button onclick="showFinal()">Tap Me 💕</button>
 </section>
 
@@ -188,24 +188,6 @@ started=true;
 document.getElementById("tap").style.display="none";
 
 let intro=document.getElementById("intro");
-let msgAudio=document.getElementById("msgAudio");
-
-// 🔥 GitHub audio fix
-[msgAudio,
- document.getElementById("bgmusic"),
- document.getElementById("instaAudio"),
- document.getElementById("fbAudio"),
- document.getElementById("s2music")
-].forEach(a=>{
-  if(a){
-    a.muted=true;
-    a.play().then(()=>{
-      a.pause();
-      a.currentTime=0;
-      a.muted=false;
-    }).catch(()=>{});
-  }
-});
 
 play(intro);
 
