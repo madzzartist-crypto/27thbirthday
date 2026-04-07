@@ -15,24 +15,15 @@ body{
   background:linear-gradient(135deg,#f5e6d3,#e8d3b9);
   color:#3b2c20;
   overflow:hidden;
-
-  /* ✅ FIX: remove flex + fix viewport */
-  height:100dvh;
 }
 
-/* ✅ PERFECT CENTER FIX */
 section{
-  height:100dvh;
-  min-height:100dvh;
-
+  min-height:100dvh; /* ✅ FIXED CENTERING */
   display:flex;
   justify-content:center;
   align-items:center;
   flex-direction:column;
   text-align:center;
-
-  padding:20px;
-  box-sizing:border-box;
 }
 
 .fancy{
@@ -88,8 +79,6 @@ img{
 </head>
 
 <body>
-
-<!-- EVERYTHING BELOW IS YOUR ORIGINAL CODE (UNCHANGED) -->
 
 <section>
   <h2 id="tap">Tap to start 💖</h2>
@@ -152,10 +141,213 @@ img{
   </h2>
 </section>
 
-<!-- YOUR SCRIPT (UNCHANGED) -->
 <script>
-/* KEEP YOUR ORIGINAL JS EXACTLY SAME */
-</script>
 
+/* JS unchanged */
+
+let started=false;
+
+function play(a){
+  a.currentTime=0;
+  a.play().catch(()=>{});
+}
+
+function showText(el,text){
+  el.innerHTML=text;
+}
+
+function typeText(el,text,speed=120){
+  let i=0;
+  el.innerHTML="";
+  let interval=setInterval(()=>{
+    el.innerHTML += text.charAt(i);
+    i++;
+    if(i>=text.length) clearInterval(interval);
+  },speed);
+}
+
+function createHearts(){
+  for(let i=0;i<30;i++){
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤️";
+    h.style.left=Math.random()*100+"%";
+    h.style.animationDuration=(4+Math.random()*3)+"s";
+    document.body.appendChild(h);
+  }
+}
+
+document.body.onclick=()=>{
+if(started) return;
+started=true;
+
+document.getElementById("tap").style.display="none";
+
+let intro=document.getElementById("intro");
+let msgAudio=document.getElementById("msgAudio");
+let s2=document.getElementById("s2music");
+
+[
+  msgAudio,
+  document.getElementById("bgmusic"),
+  document.getElementById("instaAudio"),
+  document.getElementById("fbAudio"),
+  document.getElementById("s2music")
+].forEach(a=>{
+  if(a){
+    a.muted = true;
+    a.play().then(()=>{
+      a.pause();
+      a.currentTime = 0;
+      a.muted = false;
+    }).catch(()=>{});
+  }
+});
+
+play(intro);
+
+let text=document.getElementById("introText");
+
+setTimeout(()=>showText(text,"hihihi… aaj kisi ka birthday hai? 😄"),1500);
+setTimeout(()=>showText(text,"mhmmm… birthday??? 🤭"),5500);
+setTimeout(()=>showText(text,"mhmmm… kiskaaaa??? 😏"),8500);
+setTimeout(()=>showText(text,"mhmmm… Sonu kaa!!! 😌💖"),11500);
+
+setTimeout(()=>{
+window.scrollBy({top:innerHeight,behavior:"smooth"});
+setTimeout(startMessage,2000);
+},13500);
+};
+
+function startMessage(){
+
+let audio=document.getElementById("msgAudio");
+let text=document.getElementById("msgText");
+let btn=document.getElementById("btn");
+
+play(audio);
+
+setTimeout(()=>showText(text,"I know ye thoda filmy hai… 💫"),0);
+setTimeout(()=>showText(text,"But aap bhi toh Shahid Kapoor ho 😌"),4000);
+setTimeout(()=>showText(text,"Anyway, jokes apart 😄"),7500);
+setTimeout(()=>showText(text,"Ummm this is just me trying to show you how I see you 💖"),10500);
+
+setTimeout(()=>btn.style.display="block",14000);
+}
+
+function showPhoto(){
+
+document.getElementById("msgAudio").pause();
+
+let sec=document.getElementById("photo");
+let bg=document.getElementById("bgmusic");
+
+sec.style.display="flex";
+window.scrollBy({top:innerHeight,behavior:"smooth"});
+
+play(bg);
+
+setTimeout(()=>{
+bg.pause();
+showAfterPhoto();
+},36000);
+}
+
+function showAfterPhoto(){
+
+let sec=document.getElementById("afterPhoto");
+let text=document.getElementById("afterText");
+let btn=document.getElementById("instaBtn");
+
+sec.style.display="flex";
+window.scrollBy({top:innerHeight,behavior:"smooth"});
+
+showText(text,"That's too much of taarif 😂<br>You don't deserve 😏");
+
+setTimeout(()=>btn.style.display="block",2500);
+}
+
+function showInsta(){
+
+let sec=document.getElementById("insta");
+let audio=document.getElementById("instaAudio");
+
+sec.style.display="flex";
+window.scrollBy({top:innerHeight,behavior:"smooth"});
+
+play(audio);
+
+setTimeout(()=>{
+audio.pause();
+document.getElementById("instaBtn2Sec").style.display="flex";
+window.scrollBy({top:innerHeight,behavior:"smooth"});
+},8000);
+}
+
+function showFB(){
+
+let sec=document.getElementById("fb");
+let audio=document.getElementById("fbAudio");
+
+sec.style.display="flex";
+window.scrollBy({top:innerHeight,behavior:"smooth"});
+
+play(audio);
+
+setTimeout(()=>{
+audio.pause();
+showTyping();
+},5000);
+}
+
+function showTyping(){
+
+let sec=document.getElementById("typingSec");
+let text=document.getElementById("typingText");
+
+sec.style.display="flex";
+window.scrollBy({top:innerHeight,behavior:"smooth"});
+
+typeText(text,
+"I don't know how you like to be celebrated yet\n\nSo\n\nI made this for you 🩷\n\nI hope you liked it ☺️"
+);
+
+createHearts();
+
+setTimeout(showStickers,13000);
+}
+
+function showStickers(){
+
+let s1=document.getElementById("sticker1");
+s1.style.display="flex";
+
+window.scrollBy({top:innerHeight,behavior:"smooth"});
+
+setTimeout(()=>{
+let s2=document.getElementById("sticker2");
+s2.style.display="flex";
+
+let music=document.getElementById("s2music");
+play(music);
+
+window.scrollBy({top:innerHeight,behavior:"smooth"});
+},4000);
+}
+
+function showFinal(){
+
+let final=document.getElementById("final");
+
+final.style.display="flex";
+createHearts();
+
+window.scrollTo({
+  top:final.offsetTop,
+  behavior:"smooth"
+});
+}
+
+</script>
 </body>
 </html>
