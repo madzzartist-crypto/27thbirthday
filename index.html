@@ -26,7 +26,6 @@ section{
   text-align:center;
 }
 
-/* CINEMATIC TEXT */
 .fancy{
   font-family:'Playfair Display',serif;
   font-size:34px;
@@ -41,7 +40,6 @@ section{
   to{opacity:1;}
 }
 
-/* HEART SHOWER */
 .heart{
   position:absolute;
   color:#d94f70;
@@ -85,18 +83,18 @@ img{
 <section>
   <h2 id="tap">Tap to start 💖</h2>
   <h1 id="introText"></h1>
-  <audio id="intro" src="intro.mp3"></audio>
+  <audio id="intro" src="intro.mp3" preload="auto"></audio>
 </section>
 
 <section>
   <h2 id="msgText"></h2>
   <button id="btn" onclick="showPhoto()" style="display:none;">Chaloooooo 💕</button>
-  <audio id="msgAudio" src="message.mp3"></audio>
+  <audio id="msgAudio" src="message.mp3" preload="auto"></audio>
 </section>
 
 <section id="photo" style="display:none;">
   <img src="photo.jpg">
-  <audio id="bgmusic" src="bgmusic.mp3"></audio>
+  <audio id="bgmusic" src="bgmusic.mp3" preload="auto"></audio>
 </section>
 
 <section id="afterPhoto" style="display:none;">
@@ -108,7 +106,7 @@ img{
 
 <section id="insta" style="display:none;">
   <img src="insta.jpg">
-  <audio id="instaAudio" src="insta.mp3"></audio>
+  <audio id="instaAudio" src="insta.mp3" preload="auto"></audio>
 </section>
 
 <section id="instaBtn2Sec" style="display:none;">
@@ -117,7 +115,7 @@ img{
 
 <section id="fb" style="display:none;">
   <img src="fb.jpg">
-  <audio id="fbAudio" src="fbmusic.mp3"></audio>
+  <audio id="fbAudio" src="fbmusic.mp3" preload="auto"></audio>
 </section>
 
 <section id="typingSec" style="display:none;">
@@ -132,7 +130,7 @@ img{
 <section id="sticker2" style="display:none;">
   <h2>But reality 😂</h2>
   <img src="sticker2.png">
-  <audio id="s2music" src="s2music.mp3"></audio>
+  <audio id="s2music" src="s2music.mp3" preload="auto"></audio>
   <button onclick="showFinal()">Tap Me 💕</button>
 </section>
 
@@ -187,10 +185,26 @@ let intro=document.getElementById("intro");
 let msgAudio=document.getElementById("msgAudio");
 let s2=document.getElementById("s2music");
 
-s2.play(); s2.pause(); s2.currentTime=0;
+// ✅ FIXED AUDIO UNLOCK (FOR GITHUB)
+[
+  msgAudio,
+  document.getElementById("bgmusic"),
+  document.getElementById("instaAudio"),
+  document.getElementById("fbAudio"),
+  document.getElementById("s2music")
+].forEach(a=>{
+  if(a){
+    a.muted = true;
+    a.play().then(()=>{
+      a.pause();
+      a.currentTime = 0;
+      a.muted = false;
+    }).catch(()=>{});
+  }
+});
 
+// 🎧 INTRO (unchanged)
 play(intro);
-msgAudio.play(); msgAudio.pause();
 
 let text=document.getElementById("introText");
 
@@ -233,7 +247,6 @@ window.scrollBy({top:innerHeight,behavior:"smooth"});
 
 play(bg);
 
-/* increased 5 seconds */
 setTimeout(()=>{
 bg.pause();
 showAfterPhoto();
@@ -336,6 +349,5 @@ window.scrollTo({
 }
 
 </script>
-
 </body>
 </html>
